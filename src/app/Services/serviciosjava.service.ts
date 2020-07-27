@@ -92,4 +92,14 @@ export class ServiciosjavaService {
     return this.httpGenerico.get(URL, this.infoServicio);
   }
 
+  getConsultaCasos(detalleError: string): Observable<any> {
+    this.infoServicio = {
+      descripcion: 'obtener información de base de datos para select',
+      detallerError: detalleError
+    };
+    this.ser7 = 'http://100.126.19.74:7225/';
+    const URL = this.ser7 + 'WsIncidentsQueryTechnicalCase-web/webresources/incidentsQueryTechnicalCase/consulta?accountNumber="25689788"';
+    return this.httpGenerico.get(URL, this.infoServicio);
+  }
+
 }

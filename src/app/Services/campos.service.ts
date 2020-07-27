@@ -8,7 +8,7 @@ export class CamposService {
   datosIniciales = {
     tipoCuenta: '',
     cuenta: '',
-    perfil: '',
+    perfil: ''
   };
 
   consulta = {
@@ -18,7 +18,7 @@ export class CamposService {
     subcategoria: '',
     vozCliente: '',
     funcionalidad: '',
-    boton: false,
+    boton: false
   };
 
   constructor() { }

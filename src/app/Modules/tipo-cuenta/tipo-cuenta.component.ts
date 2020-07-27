@@ -1,8 +1,6 @@
-
 import { Component, OnInit } from '@angular/core';
-import { ServiciosjavaService } from 'src/app/Services/serviciosjava.service';
 import { UtilService } from 'src/app/Services/util.service';
-import { CamposService } from 'src/app/services/campos.service';
+import { CamposService } from 'src/app/Services/campos.service';
 
 @Component({
   selector: 'app-tipo-cuenta',
@@ -11,10 +9,15 @@ import { CamposService } from 'src/app/services/campos.service';
 })
 export class TipoCuentaComponent implements OnInit {
 
+  datosIniciales = {
+    tipoCuenta: '',
+    cuenta: '',
+    perfil: ''
+  };
+
   constructor(
-    private servicios: ServiciosjavaService,
+    public campos: CamposService,
     public util: UtilService,
-    public campos: CamposService
   ) { }
 
   ngOnInit(): void {
@@ -25,19 +28,20 @@ export class TipoCuentaComponent implements OnInit {
       icono: 'fa fa-info-circle',
       texto: ''
     };
+
     if (sessionStorage.length > 0) {
 
-      this.campos.datosIniciales.cuenta = sessionStorage.getItem('account');
-      this.campos.datosIniciales.perfil = sessionStorage.getItem('perfil');
-      this.campos.datosIniciales.tipoCuenta = sessionStorage.getItem('tipoCuenta');
+      this.datosIniciales.cuenta = sessionStorage.getItem('account');
+      this.datosIniciales.perfil = sessionStorage.getItem('perfil');
+      this.datosIniciales.tipoCuenta = sessionStorage.getItem('tipoCuenta');
 
-      if (!this.util.valCampoLleno(this.campos.datosIniciales.cuenta)) {
+      if (!this.util.valCampoLleno(this.datosIniciales.cuenta)) {
         this.util.alerta.texto = 'No se logró obtener el valor de la cuenta. Por favor actualice.';
         this.util.lanzarModalNotificacion();
-      } else if (!this.util.valCampoLleno(this.campos.datosIniciales.perfil)) {
+      } else if (!this.util.valCampoLleno(this.datosIniciales.perfil)) {
         this.util.alerta.texto = 'No se logró obtener el valor del perfil. Por favor actualice.';
         this.util.lanzarModalNotificacion();
-      } else if (!this.util.valCampoLleno(this.campos.datosIniciales.tipoCuenta)) {
+      } else if (!this.util.valCampoLleno(this.datosIniciales.tipoCuenta)) {
         this.util.alerta.texto = 'No se logró obtener el valor del tipo de cuenta. Por favor actualice.';
         this.util.lanzarModalNotificacion();
       }

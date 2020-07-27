@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilService } from 'src/app/Services/util.service';
 import { CamposService } from 'src/app/Services/campos.service';
+import { ServiciosjavaService } from 'src/app/Services/serviciosjava.service';
 
 @Component({
   selector: 'app-criterios-consulta',
@@ -13,6 +14,7 @@ export class CriteriosConsultaComponent implements OnInit {
   constructor(
     public campos: CamposService,
     public util: UtilService,
+    private servicios: ServiciosjavaService,
   ) { }
 
   ngOnInit(): void {
@@ -31,6 +33,21 @@ export class CriteriosConsultaComponent implements OnInit {
     } else {
       this.campos.consulta.boton = false;
     }
+  }
+
+  consultarCasos(): void {
+    this.consumirConsultaCasos();
+  }
+
+  consumirConsultaCasos(): void {
+    const detalleError = 'No se logró obtener un listado de casos técnicos.';
+    this.servicios.getConsultaCasos(detalleError).subscribe(
+      data => {
+        console.log('Casos técnicos:', data);
+      }, error => {
+        console.log('Error consulta casos: ', error);
+      }
+    );
   }
 
 }
