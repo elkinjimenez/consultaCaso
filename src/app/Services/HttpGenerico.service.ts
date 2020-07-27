@@ -60,7 +60,6 @@ export class HttpGenericoService {
   }
 
   private onCatchError(response: { status: number; }, errors: InfoServicio): Observable<any> {
-    this.util.limpiarModal();
 
     if (errors.detallerError === '') {
       errors.detallerError = 'sin descripción';
@@ -77,45 +76,45 @@ export class HttpGenericoService {
     if (response.status === 0) {
       mensaje = mensaje + ', no hay conexión con el servidor. Detalle: ' + errors.detallerError;
       this.util.alerta.texto = mensaje;
-      this.util.lanzarModal();
+      this.util.lanzarModalNotificacion();
       return EMPTY;
     } else if (response.status === 400) {
       mensaje = mensaje + ', parámetro(s) erróneo(s) para el servicio. Detalle: ' + errors.detallerError;
       this.util.alerta.texto = mensaje;
-      this.util.lanzarModal();
+      this.util.lanzarModalNotificacion();
       return EMPTY;
     } else if (response.status === 401) {
       this.util.alerta.texto = 'Su sesión ha caducado';
-      this.util.lanzarModal();
+      this.util.lanzarModalNotificacion();
     } else if (response.status === 403) {
       mensaje = mensaje + ', no se autorizado para acceder a este recurso. Detalle: ' + errors.detallerError;
       this.util.alerta.texto = mensaje;
-      this.util.lanzarModal();
+      this.util.lanzarModalNotificacion();
       return EMPTY;
     } else if (response.status === 404) {
       mensaje = mensaje + ', recurso no encontrado. Detalle: ' + errors.detallerError;
       this.util.alerta.texto = mensaje;
-      this.util.lanzarModal();
+      this.util.lanzarModalNotificacion();
       return EMPTY;
     } else if (response.status === 405) {
       mensaje = mensaje + ', método del servicio no corresponde. Detalle: ' + errors.detallerError;
       this.util.alerta.texto = mensaje;
-      this.util.lanzarModal();
+      this.util.lanzarModalNotificacion();
       return EMPTY;
     } else if (response.status === 415) {
       mensaje = mensaje + ', error en el formato soportado para el servicio. Detalle: ' + errors.detallerError;
       this.util.alerta.texto = mensaje;
-      this.util.lanzarModal();
+      this.util.lanzarModalNotificacion();
       return EMPTY;
     } else if (response.status === 500) {
       mensaje = mensaje + ', error del sistema: por favor contacte al administrador. Detalle: ' + errors.detallerError;
       this.util.alerta.texto = mensaje;
-      this.util.lanzarModal();
+      this.util.lanzarModalNotificacion();
       return EMPTY;
     } else {
       mensaje = mensaje + ', error inesperado. Detalle: ' + errors.detallerError;
       this.util.alerta.texto = mensaje;
-      this.util.lanzarModal();
+      this.util.lanzarModalNotificacion();
       return EMPTY;
     }
     return throwError(response);

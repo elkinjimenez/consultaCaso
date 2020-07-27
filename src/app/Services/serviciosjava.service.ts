@@ -47,7 +47,7 @@ export class ServiciosjavaService {
     );
   }
 
-  cargarServidores() {
+  cargarServidores(): void {
     // SE DEBE MODIFICAR DEPENDIENDO DE LA CARGA DE LOS SERVIDORES DEL SERVICIO DEL PARAMETROS
     this.ser1 = this.sg['params'].servidores.ser1; // http://100.126.19.74:8091/
     this.ser2 = this.sg['params'].servidores.ser2; // http://172.23.3.128:8000/
@@ -58,7 +58,7 @@ export class ServiciosjavaService {
     this.ser7 = this.sg['params'].servidores.ser7; // http://100.126.19.74:7001/
   }
 
-  setPresencialBizInteraction(detalleError: string, data: ReqBizInteraction) {
+  setPresencialBizInteraction(detalleError: string, data: ReqBizInteraction): Observable<any> {
     this.infoServicio = {
       descripcion: 'gestionar la apertura o finalizacion de la iteración',
       detallerError: detalleError
@@ -80,23 +80,6 @@ export class ServiciosjavaService {
     const URL = this.ser3 + 'BIZInteractions/Rest/V1.0/BizInteractionsApi/put/setPresencialBizInteraction/' + jsonData
       + '?' + dataRequestHeader;
     return this.httpGenerico.put(URL, null, this.infoServicio);
-  }
-
-  getFuncionality(detalleError: string): Observable<RespParameter> {
-    this.infoServicio = {
-      descripcion: 'consultar funcionalidades de la base de datos',
-      detallerError: detalleError
-    };
-    const URL = this.ser7 + 'WsIncidentsParams-web/webresources/IncidentsParam/functionality/';
-    // var listIdDeparmentsType = new Array<RespParameter>();
-    return this.httpGenerico.get(URL, this.infoServicio).pipe(
-      map(parameters => {
-        const parametros = new RespParameter();
-        parametros.funcionality = parameters.parameters;
-        parametros.response = parameters.response;
-        return parametros;
-      })
-    );
   }
 
 }

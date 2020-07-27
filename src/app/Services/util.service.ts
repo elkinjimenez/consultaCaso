@@ -13,35 +13,26 @@ export class UtilService {
   constructor() { }
 
   // FUNCION DE BLOQUEAR PANTALLA
-  bloquearUI() {
+  bloquearUI(): void {
     this.blockUI.start();
   }
 
-  desbloquearUI() {
+  desbloquearUI(): void {
     this.blockUI.stop();
   }
 
-  // FUNCION DE MOSTRAR MENSAJES
-  limpiarModal() {
-    this.alerta = {
-      color: '',
-      texto: '',
-      icono: '',
-    };
-  }
-
-  lanzarModal() {
+  lanzarModalNotificacion(): void {
     $('#modalNotifica').modal('show');
   }
 
-  valCampoLleno(campo: any) {
+  valCampoLleno(campo: any): boolean {
     if (campo === null || campo === undefined || campo === '') {
       return false;
     }
     return true;
   }
 
-  valCamposVacios(campos: any[]) {
+  valCamposVacios(campos: any[]): boolean {
     let validacion = true;
     campos.forEach(campo => {
       if (campo === null || campo === undefined || campo === '') {

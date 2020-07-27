@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ReqBizInteraction } from 'src/app/Models/req-biz-interactions';
 import { Subscription } from 'rxjs';
 import { SimpleGlobal } from 'ng2-simple-global';
@@ -9,7 +9,7 @@ import { UtilService } from 'src/app/Services/util.service';
   selector: 'app-gestion-iteracion',
   template: ``
 })
-export class GestionIteracionComponent implements OnInit {
+export class GestionIteracionComponent implements OnInit, OnDestroy {
 
   requestIteracion = {} as ReqBizInteraction;
   codApertura: number;
@@ -29,19 +29,33 @@ export class GestionIteracionComponent implements OnInit {
     // PARAMETRO DE SESSION STORAGE
     const url = sessionStorage.getItem('urlReturn');
     if (url !== undefined) { this.urlReturn = url; }
+    this.requestIteracion = {} as ReqBizInteraction;
+
+    // PARAMETROS SESSIONSTORAGE
+    const turno = sessionStorage.getItem('idTurn');
+    if (util.valCampoLleno(turno)) { this.requestIteracion.idTurn = turno; }
+
+    const biHeader = sessionStorage.getItem('idHeader');
+    if (util.valCampoLleno(biHeader)) { this.requestIteracion.biHeaderId = biHeader; }
+
+    const numero = sessionStorage.getItem('documentNumber');
+    if (util.valCampoLleno(numero)) { this.requestIteracion.customerCode = numero; }
+
+    this.requestIteracion.headerRequestBizInteraction = this.sg['params'].headerGestionIteracion;
+    this.requestIteracion.interactionDirectionTypeCode = this.sg['params'].reqBizInterDirectionTypeCode;
+
 
     // PARAMETROS BASE DE DATOS
     this.codApertura = this.sg['params'].ap_ci_turno.apertura;
     this.codCierre = this.sg['params'].ap_ci_turno.cierre;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     console.log('Gestion Iteracion');
   }
 
-  public inicializarIteracion(servicio: string) {
+  public inicializarIteracion(servicio: string): void {
 
-    this.reiniciarInfo(1);
     if (this.util.valCampoLleno(this.requestIteracion.idTurn)) {
       this.requestIteracion.idEvent = this.codApertura;
       this.requestIteracion.presencialChannel = true;
@@ -59,9 +73,7 @@ export class GestionIteracionComponent implements OnInit {
       );
   }
 
-  finalizarIteracion(servicio: string, retornar: boolean) {
-
-    this.reiniciarInfo(2);
+  finalizarIteracion(servicio: string, retornar: boolean): void {
 
     if (this.util.valCampoLleno(this.requestIteracion.idTurn)) {
       this.requestIteracion.idEvent = this.codCierre;
@@ -88,49 +100,13 @@ export class GestionIteracionComponent implements OnInit {
               icono: 'fa-info-circle',
               texto: 'No se pudo finalizar iteración. Por favor inténtelo de nuevo.'
             };
-            this.util.lanzarModal();
+            this.util.lanzarModalNotificacion();
           }
         }
       );
   }
 
-  reiniciarInfo(evento: number) {
-
-    this.requestIteracion = {} as ReqBizInteraction;
-
-    // PARAMETROS SESSIONSTORAGE
-    const turno = sessionStorage.getItem('idTurn');
-    if (turno !== undefined) { this.requestIteracion.idTurn = turno; }
-
-    const biHeader = sessionStorage.getItem('idHeader');
-    if (biHeader !== undefined) { this.requestIteracion.biHeaderId = biHeader; }
-
-    const numero = sessionStorage.getItem('documentNumber');
-    if (numero !== undefined) { this.requestIteracion.customerCode = numero; }
-
-    this.requestIteracion.headerRequestBizInteraction = this.sg['params'].headerGestionIteracion;
-    this.requestIteracion.interactionDirectionTypeCode = this.sg['params'].reqBizInterDirectionTypeCode;
-
-    if (evento === 2) {
-      const categoryCode = sessionStorage.getItem('categoryCode');
-      if (categoryCode !== undefined) { this.requestIteracion.categoryCode = Number(categoryCode); }
-
-      const subCategoryCode = sessionStorage.getItem('subCategoryCode');
-      if (subCategoryCode !== undefined) { this.requestIteracion.subCategoryCode = Number(subCategoryCode); }
-
-      const voiceOfCustomerCode = sessionStorage.getItem('voiceOfCustomerCode');
-      if (voiceOfCustomerCode !== undefined) { this.requestIteracion.voiceOfCustomerCode = Number(voiceOfCustomerCode); }
-
-      const closeInteractionCode = sessionStorage.getItem('closeInteractionCode');
-      if (closeInteractionCode !== undefined) { this.requestIteracion.closeInteractionCode = Number(voiceOfCustomerCode); }
-
-      const description = sessionStorage.getItem('description');
-      if (description !== undefined) { this.requestIteracion.description = description; }
-    }
-
-  }
-
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 

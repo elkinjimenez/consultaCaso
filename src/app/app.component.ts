@@ -37,18 +37,18 @@ export class AppComponent implements OnDestroy {
 
   }
 
-  validacionVariables() {
+  validacionVariables(): void {
     if (!this.activarComponent) {
       this.util.alerta = {
         color: 'alerta-negativa',
         icono: 'fas fa-info-circle',
         texto: 'Variables no obtenidas, por favor actualice o comuníquese con el administrador.'
       };
-      this.util.lanzarModal();
+      this.util.lanzarModalNotificacion();
     }
   }
 
-  getDatosPostM() {
+  getDatosPostM(): void {
     let mensaje: any;
     function reciber(e) {
       mensaje = e.data;
@@ -64,7 +64,7 @@ export class AppComponent implements OnDestroy {
     window.addEventListener('message', reciber);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 }
