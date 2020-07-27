@@ -5,6 +5,12 @@ import { Injectable } from '@angular/core';
 })
 export class CamposService {
 
+  datosIniciales = {
+    tipoCuenta: '',
+    cuenta: '',
+    perfil: '',
+  };
+
   consulta = {
     tipoSolicitud: '',
     servicios: '',
