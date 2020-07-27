@@ -3,6 +3,7 @@ import { UtilService } from 'src/app/Services/util.service';
 import { CamposService } from 'src/app/Services/campos.service';
 import { ServiciosjavaService } from 'src/app/Services/serviciosjava.service';
 import { RespTableParameter } from 'src/app/Models/resp-table-parameters';
+import { RespConsultaCasos } from 'src/app/Models/resp-consulta-casos';
 
 @Component({
   selector: 'app-criterios-consulta',
@@ -11,6 +12,7 @@ import { RespTableParameter } from 'src/app/Models/resp-table-parameters';
 })
 export class CriteriosConsultaComponent implements OnInit {
 
+  responseConsultaCasos: RespConsultaCasos;
   responseTablaParametrica: RespTableParameter;
 
   // CAMPOS SELECTS
@@ -83,6 +85,24 @@ export class CriteriosConsultaComponent implements OnInit {
     this.servicios.getConsultaCasos(detalleError).subscribe(
       data => {
         console.log('Casos técnicos:', data);
+        this.responseConsultaCasos = data as RespConsultaCasos;
+        if (this.responseConsultaCasos.isValid) {
+          this.campos.casosTecnicos = {
+            casos: this.responseConsultaCasos.results,
+            estado: true,
+            mensaje: ''
+          };
+          console.log('Listado Tabla: ', this.campos.casosTecnicos);
+        } else {
+          this.campos.casosTecnicos.mensaje = this.responseConsultaCasos.description;
+          this.campos.casosTecnicos.estado = false;
+          this.util.lanzarModalNotificacion();
+          this.util.alerta = {
+            color: 'alerta-negativa',
+            icono: 'fas fa-info-circle',
+            texto: this.responseConsultaCasos.description
+          };
+        }
       }, error => {
         console.log('Error consulta casos: ', error);
       }
