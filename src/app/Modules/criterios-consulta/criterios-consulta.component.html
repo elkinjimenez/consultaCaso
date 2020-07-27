@@ -7,9 +7,10 @@
             <div class="form-group row mx-2">
               <label for="tipoSolicitud" class="col-sm-4 col-form-label">Tipo de solicitud <span
                   class="text-danger font-weight-bold">*</span></label>
-              <select [(ngModel)]="campos.consulta.tipoSolicitud" class="form-control col-sm-8 input-peque"
-                id="tipoSolicitud">
+              <select [disabled]="campos.selectTipoSolicitud.length === 0" [(ngModel)]="campos.consulta.tipoSolicitud"
+                class="form-control col-sm-8 input-peque" id="tipoSolicitud">
                 <option value="" selected disabled>Seleccione</option>
+                <option value="{{t.id}}" *ngFor="let t of campos.selectTipoSolicitud">{{t.description}}</option>
               </select>
             </div>
           </div>

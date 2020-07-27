@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { TableElement } from '../Models/resp-table-parameters';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,8 @@ export class CamposService {
     boton: false
   };
 
+  selectTipoSolicitud = [] as TableElement[];
+
   constructor() { }
+
 }

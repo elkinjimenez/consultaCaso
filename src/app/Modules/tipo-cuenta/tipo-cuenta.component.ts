@@ -19,6 +19,12 @@ export class TipoCuentaComponent implements OnInit {
 
   ngOnInit(): void {
 
+    // QUITAR SESSIONSTORAGE QUEMADAS
+
+    sessionStorage.setItem('account', '25689788');
+    sessionStorage.setItem('perfil', '1');
+    sessionStorage.setItem('tipoCuenta', '2');
+
     // INICIALIZAR VALORES MODAL
     this.util.alerta = {
       color: 'alerta-negativa',
