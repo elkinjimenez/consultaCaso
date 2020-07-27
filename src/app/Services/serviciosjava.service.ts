@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { SimpleGlobal } from 'ng2-simple-global';
 import { ReqBizInteraction } from '../Models/req-biz-interactions';
 import { UtilService } from './util.service';
+import { RespTableParameter } from './../Models/resp-table-parameters';
 
 @Injectable({
   providedIn: 'root'
@@ -58,7 +59,7 @@ export class ServiciosjavaService {
     this.ser7 = this.sg['params'].servidores.ser7; // http://100.126.19.74:7001/
   }
 
-  setPresencialBizInteraction(detalleError: string, data: ReqBizInteraction): Observable<any> {
+  putPresencialBizInteraction(detalleError: string, data: ReqBizInteraction): Observable<any> {
     this.infoServicio = {
       descripcion: 'gestionar la apertura o finalizacion de la iteración',
       detallerError: detalleError
@@ -80,6 +81,15 @@ export class ServiciosjavaService {
     const URL = this.ser3 + 'BIZInteractions/Rest/V1.0/BizInteractionsApi/put/setPresencialBizInteraction/' + jsonData
       + '?' + dataRequestHeader;
     return this.httpGenerico.put(URL, null, this.infoServicio);
+  }
+
+  getTablaParametricaById(detalleError: string, id: string): Observable<RespTableParameter> {
+    this.infoServicio = {
+      descripcion: 'obtener información de base de datos para select',
+      detallerError: detalleError
+    };
+    const URL = this.ser7 + 'WsIncidentsParametersTables-web/webresources/ParametersTables/queryTable?idTable=' + id;
+    return this.httpGenerico.get(URL, this.infoServicio);
   }
 
 }

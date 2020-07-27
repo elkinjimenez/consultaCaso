@@ -1,4 +1,4 @@
-export class InfoServicio {
+export interface InfoServicio {
   descripcion: string;
   detallerError: string;
 }

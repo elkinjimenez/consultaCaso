@@ -65,7 +65,7 @@ export class GestionIteracionComponent implements OnInit, OnDestroy {
     this.requestIteracion.executionDate = (new Date().toISOString()).substring(0, 19);
     this.requestIteracion.headerRequestBizInteraction.requestDate = (new Date().toISOString()).substring(0, 19);
     this.requestIteracion.service = servicio;
-    this.subscription = this.servicios.setPresencialBizInteraction('Error al hacer la apertura de iteración', this.requestIteracion)
+    this.subscription = this.servicios.putPresencialBizInteraction('Error al hacer la apertura de iteración', this.requestIteracion)
       .subscribe(
         data => {
           console.log('Respuesta de inicializar iteración: ', data);
@@ -84,7 +84,7 @@ export class GestionIteracionComponent implements OnInit, OnDestroy {
     this.requestIteracion.executionDate = (new Date().toISOString()).substring(0, 19);
     this.requestIteracion.headerRequestBizInteraction.requestDate = (new Date().toISOString()).substring(0, 19);
     this.requestIteracion.service = servicio;
-    this.subscription = this.servicios.setPresencialBizInteraction('Error al finalizar iteración', this.requestIteracion)
+    this.subscription = this.servicios.putPresencialBizInteraction('Error al finalizar iteración', this.requestIteracion)
       .subscribe(
         data => {
           console.log('Respuesta de finalizar iteración: ', data);

@@ -1,4 +1,4 @@
-export class ReqHeaderRequest {
+export interface ReqHeaderRequest {
   transactionId?: string;
   system?: string;
   target?: string;

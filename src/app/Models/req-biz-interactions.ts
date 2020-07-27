@@ -1,6 +1,6 @@
 import { ReqHeaderRequest } from './parameters/req-header-request';
 
-export class ReqBizInteraction {
+export interface ReqBizInteraction {
   presencialChannel: boolean;
   idTurn: string;
   idEvent: number;
