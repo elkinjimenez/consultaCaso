@@ -18,4 +18,19 @@ export class CriteriosConsultaComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  validarCamposConsulta(): void {
+    if (
+      this.campos.consulta.tipoSolicitud !== '' &&
+      this.campos.consulta.servicios !== '' &&
+      this.campos.consulta.categoria !== '' &&
+      this.campos.consulta.subcategoria !== '' &&
+      this.campos.consulta.vozCliente !== '' &&
+      this.campos.consulta.funcionalidad !== ''
+    ) {
+      this.campos.consulta.boton = true;
+    } else {
+      this.campos.consulta.boton = false;
+    }
+  }
+
 }

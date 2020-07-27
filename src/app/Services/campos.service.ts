@@ -12,6 +12,7 @@ export class CamposService {
     subcategoria: '',
     vozCliente: '',
     funcionalidad: '',
+    boton: false,
   };
 
   constructor() { }
