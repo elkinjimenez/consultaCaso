@@ -1,16 +1,1 @@
-<block-ui></block-ui>
-<app-modal-notifica></app-modal-notifica>
-<div class="container-fluid mt-3">
-  <!-- CARGADO CORRECTAMENTE -->
-  <div *ngIf="activarComponent === true">
-    <app-tipo-cuenta></app-tipo-cuenta>
-  </div>
-  <!-- NO LOGRÓ CARGAR CORRECTAMENTE -->
-  <div *ngIf="activarComponent === false">
-    <h5>No cargó correctamente el proyecto...</h5>
-  </div>
-  <!-- NO HA CARGADO -->
-  <div *ngIf="activarComponent === undefined">
-    <h5>Cargando proyecto...</h5>
-  </div>
-</div>
+<router-outlet></router-outlet>
