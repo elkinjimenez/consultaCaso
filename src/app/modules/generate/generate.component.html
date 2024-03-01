@@ -1,9 +1,18 @@
 <div class="container-center">
+  @if (!qrImage) {
   <div class="img-logo">
     <img src="/assets/images/logo-qr-generator.svg" alt="LogoQR">
   </div>
   <div class="input-with-button">
-    <input class="cambiar-tamano" type="text" placeholder="Enter an url">
-    <button class="btn">QR Code</button>
+    <input [(ngModel)]="qrData" class="cambiar-tamano" type="text" placeholder="Enter an url">
+    <button [disabled]="!qrData" (click)="generateQRCode()" class="btn-qr">QR Code</button>
   </div>
+  }@else {
+  <div class="qr">
+    <div class="color-circle"></div>
+    <img class="img-qr" [src]="qrImage" alt="QR Code">
+  </div>
+  <button class="btn">Download</button>
+  <button class="btn">Share</button>
+  }
 </div>
