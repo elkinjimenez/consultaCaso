@@ -4,7 +4,5 @@ import { GeneratedComponent } from './modules/generated/generated.component';
 
 export const routes: Routes = [
   { path: '', component: GenerateComponent },
-  { path: 'generated', component: GeneratedComponent },
-
   { path: '**', redirectTo: '' },
 ];
