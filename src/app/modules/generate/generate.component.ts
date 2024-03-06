@@ -29,4 +29,17 @@ export class GenerateComponent {
       });
   }
 
+  downloadImage() {
+    fetch(this.qrImage)
+      .then(response => response.blob())
+      .then(blob => {
+        const blobUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = 'QR';
+        link.click();
+        window.URL.revokeObjectURL(blobUrl);
+      });
+  }
+
 }
